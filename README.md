@@ -32,10 +32,10 @@ python ca_web.py
 - Run: python ca_web.py
 - Go to : https://localhost:5000
 - Enter Credentials:
-- **Username:** 'admin'
-- **Password:** 'admin123'
-- Issue Cert: Enter a site name and click 'Issue Certificate' to generate a key, CSR, and signed certificate.
+- **Username:** `admin`
+- **Password:** `admin123`
+- Issue Cert: Enter a site name and click `Issue Certificate` to generate a key, CSR, and signed certificate.
 - View Cert: See a table of all issued certificates, including their serial number, subject, status, and issuance date.
-- Download Cert: Click 'Download' to download a certificate file.
-- Revoke Cert: Click 'Revoke' to mark a certificate as revoked, updated in the database.
-- Logout: Click the 'Logout' link to end the session.
+- Download Cert: Click `Download` to download a certificate file.
+- Revoke Cert: Click `Revoke` to mark a certificate as revoked, updated in the database.
+- Logout: Click the `Logout` link to end the session.
