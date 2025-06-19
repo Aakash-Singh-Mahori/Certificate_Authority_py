@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Authority Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Certificate Authority</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Certificate Authority Dashboard</h2>
+
+        <!-- Form to issue a new certificate -->
+        <div class="card mt-4">
+            <div class="card-header">Issue New Certificate</div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('generate_server') }}">
+                    <div class="mb-3">
+                        <label for="common_name" class="form-label">Common Name (e.g., server.example.com)</label>
+                        <input type="text" class="form-control" id="common_name" name="common_name" value="server.example.com" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Issue Certificate</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- List of issued certificates -->
+        <div class="card mt-4">
+            <div class="card-header">Issued Certificates</div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Serial Number</th>
+                            <th>Subject</th>
+                            <th>Status</th>
+                            <th>Issued At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cert in certificates %}
+                        <tr>
+                            <td>{{ cert.serial_number }}</td>
+                            <td>{{ cert.subject }}</td>
+                            <td>{{ cert.status }}</td>
+                            <td>{{ cert.issued_at }}</td>
+                            <td>
+                                <a href="{{ url_for('download', cert_id=cert.id) }}" class="btn btn-sm btn-success">Download</a>
+                                {% if cert.status == 'active' %}
+                                <a href="{{ url_for('revoke', cert_id=cert.id) }}" class="btn btn-sm btn-danger" 
+                                   onclick="return confirm('Are you sure you want to revoke this certificate?')">Revoke</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info mt-3">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
