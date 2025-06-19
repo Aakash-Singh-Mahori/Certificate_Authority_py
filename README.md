@@ -19,7 +19,7 @@ A Certificate Authority system built with Python and Flask for issuing, revoking
 ## Setup Instructions
 
 ```bash
-git clone https://github.com/yourusername/Certificate_Authority_py.git
+git clone https://github.com/yourusername/Certificate_Authority_pydj.git
 cd Certificate_Authority_py
 python3 -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
